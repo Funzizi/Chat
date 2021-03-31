@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,9 +22,12 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -61,14 +63,16 @@ public class UserFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 userList.clear();
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    User user = dataSnapshot.getValue(User.class);
+                Map<String, Object> td = (HashMap<String, Object>) snapshot.child("Users").getValue();
+                Gson gson = new Gson();
+                for(Map.Entry<String, Object> entry : td.entrySet()) {
+                    User user = gson.fromJson(gson.toJsonTree(entry.getValue()), User.class);
                     if (!user.getId().equals(firebaseUser.getUid())) {
                         userList.add(user);
                     }
-                    userAdapter = new UserAdapter(getContext(), userList);
-                    rcvAllUser.setAdapter(userAdapter);
                 }
+                userAdapter = new UserAdapter(getContext(), userList);
+                rcvAllUser.setAdapter(userAdapter);
             }
 
             @Override
