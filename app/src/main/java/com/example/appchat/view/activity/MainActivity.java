@@ -1,4 +1,4 @@
-package com.example.appchat.view;
+package com.example.appchat.view.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,8 +15,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.appchat.adapter.ViewPagerAdapter;
 import com.example.appchat.R;
-import com.example.appchat.fragment.ChatFragment;
-import com.example.appchat.fragment.UserFragment;
+import com.example.appchat.view.fragment.ChatFragment;
+import com.example.appchat.view.fragment.UserFragment;
 import com.example.appchat.model.User;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
@@ -26,7 +26,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.database.annotations.Nullable;
 
 import java.util.Objects;
 

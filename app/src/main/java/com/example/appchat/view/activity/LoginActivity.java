@@ -1,4 +1,4 @@
-package com.example.appchat.view;
+package com.example.appchat.view.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;

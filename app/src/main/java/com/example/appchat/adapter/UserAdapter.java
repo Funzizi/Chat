@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.appchat.R;
 import com.example.appchat.model.User;
-import com.example.appchat.view.MainActivity;
 
 import java.util.List;
 

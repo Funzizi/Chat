@@ -1,4 +1,4 @@
-package com.example.appchat.fragment;
+package com.example.appchat.view.fragment;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
