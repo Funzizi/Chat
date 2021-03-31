@@ -11,11 +11,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppChat">
+        <activity android:name=".view.activity.MessageActivity"/>
         <activity android:name=".view.activity.MainActivity" />
-        <activity android:name=".view.activity.LoginActivity"
-            android:parentActivityName=".view.activity.StartActivity"/>
-        <activity android:name=".view.activity.SignUpActivity"
-            android:parentActivityName=".view.activity.StartActivity"/>
+        <activity
+            android:name=".view.activity.LoginActivity"
+            android:parentActivityName=".view.activity.StartActivity" />
+        <activity
+            android:name=".view.activity.SignUpActivity"
+            android:parentActivityName=".view.activity.StartActivity" />
         <activity android:name=".view.activity.StartActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
