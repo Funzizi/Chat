@@ -15,9 +15,10 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.appchat.adapter.ViewPagerAdapter;
 import com.example.appchat.R;
+import com.example.appchat.view.fragment.AllUserFragment;
 import com.example.appchat.view.fragment.ChatFragment;
-import com.example.appchat.view.fragment.UserFragment;
-import com.example.appchat.model.User;
+import com.example.appchat.view.fragment.UserDeatilFragment;
+import com.example.appchat.model.Account;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -62,7 +63,8 @@ public class MainActivity extends AppCompatActivity {
         // Tab Layout
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
         viewPagerAdapter.addPage(new ChatFragment(), "Chat");
-        viewPagerAdapter.addPage(new UserFragment(), "All User");
+        viewPagerAdapter.addPage(new AllUserFragment(), "All User");
+        viewPagerAdapter.addPage(new UserDeatilFragment(), "Thông tin tài khoản");
         viewPager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
 
@@ -72,13 +74,13 @@ public class MainActivity extends AppCompatActivity {
             @SuppressLint("CheckResult")
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                User user = snapshot.getValue(User.class);
-                if (user != null) {
-                    userName.setText(user.getUsername());
-                    if (user.getImageURL() != null && user.getImageURL().equals("default")) {
+                Account account = snapshot.getValue(Account.class);
+                if (account != null) {
+                    userName.setText(account.getUsername());
+                    if (account.getImageURL() != null && account.getImageURL().equals("default")) {
                         profileImage.setImageResource(R.mipmap.ic_launcher);
                     } else {
-                        Glide.with(MainActivity.this).load(user.getImageURL()).into(profileImage);
+                        Glide.with(MainActivity.this).load(account.getImageURL()).into(profileImage);
                     }
                 }
             }

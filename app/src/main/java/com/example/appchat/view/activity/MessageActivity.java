@@ -18,7 +18,7 @@ import com.bumptech.glide.Glide;
 import com.example.appchat.R;
 import com.example.appchat.adapter.MessageAdapter;
 import com.example.appchat.model.Message;
-import com.example.appchat.model.User;
+import com.example.appchat.model.Account;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -26,12 +26,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 import butterknife.BindView;
@@ -76,16 +74,16 @@ public class MessageActivity extends AppCompatActivity {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                User user = snapshot.getValue(User.class);
-                if (user != null) {
-                    userName.setText(user.getUsername());
-                    if (user.getImageURL() != null && user.getImageURL().equals("default")) {
+                Account account = snapshot.getValue(Account.class);
+                if (account != null) {
+                    userName.setText(account.getUsername());
+                    if (account.getImageURL() != null && account.getImageURL().equals("default")) {
                         profileImage.setImageResource(R.mipmap.ic_launcher);
                     } else {
-                        Glide.with(MessageActivity.this).load(user.getImageURL()).into(profileImage);
+                        Glide.with(MessageActivity.this).load(account.getImageURL()).into(profileImage);
                     }
 
-                    responseMessage(firebaseUser.getUid(), Uid, user.getImageURL());
+                    responseMessage(firebaseUser.getUid(), Uid, account.getImageURL());
                 }
             }
 

@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 import com.example.appchat.R;
 import com.example.appchat.adapter.UserAdapter;
 import com.example.appchat.model.Message;
-import com.example.appchat.model.User;
+import com.example.appchat.model.Account;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -22,12 +22,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.gson.Gson;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -41,7 +38,7 @@ public class ChatFragment extends Fragment {
     private DatabaseReference databaseReference;
 
     private UserAdapter userAdapter;
-    private List<User> userList;
+    private List<Account> accountList;
     private List<String> receiverList;
 
     @Override
@@ -81,12 +78,12 @@ public class ChatFragment extends Fragment {
     }
 
     private void displayMessage() {
-        userList = new ArrayList<>();
+        accountList = new ArrayList<>();
         databaseReference = FirebaseDatabase.getInstance().getReference("Users");
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                userList.clear();
+                accountList.clear();
 //                Map<String, Object> td = (HashMap<String, Object>) snapshot.child("Users").getValue();
 //                Gson gson = new Gson();
 //                for(Map.Entry<String, Object> entry : td.entrySet()) {
@@ -107,24 +104,24 @@ public class ChatFragment extends Fragment {
 //                }
 
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    User user = dataSnapshot.getValue(User.class);
+                    Account account = dataSnapshot.getValue(Account.class);
 
                     // add 1 User
                     for (String id : receiverList) {
-                        if (user.getId().equals(id)) {
-                            if (userList.size() != 0) {
-                                for (User u : userList) {
-                                    if (!user.getId().equals(u.getId())) {
-                                        userList.add(user);
+                        if (account.getId().equals(id)) {
+                            if (accountList.size() != 0) {
+                                for (Account u : accountList) {
+                                    if (!account.getId().equals(u.getId())) {
+                                        accountList.add(account);
                                     }
                                 }
                             } else {
-                                userList.add(user);
+                                accountList.add(account);
                             }
                         }
                     }
                 }
-                userAdapter = new UserAdapter(getContext(), userList);
+                userAdapter = new UserAdapter(getContext(), accountList);
                 rcv.setAdapter(userAdapter);
             }
 

@@ -1,6 +1,6 @@
 package com.example.appchat.model;
 
-public class User {
+public class Account {
     private String id;
     private String imageURL;
     private String username;

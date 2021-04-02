@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.appchat.R;
-import com.example.appchat.model.User;
+import com.example.appchat.model.Account;
 import com.example.appchat.view.activity.MessageActivity;
 
 import java.util.List;
@@ -25,11 +25,11 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
     private Context mContext;
-    private List<User> userList;
+    private List<Account> accountList;
 
-    public UserAdapter (Context context, List<User> userList) {
+    public UserAdapter (Context context, List<Account> accountList) {
         this.mContext = context;
-        this.userList = userList;
+        this.accountList = accountList;
     }
 
     @NonNull
@@ -41,19 +41,19 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        User user = userList.get(position);
-        holder.profileName.setText(user.getUsername());
-        if (user.getImageURL() != null && user.getImageURL().equals("default")) {
+        Account account = accountList.get(position);
+        holder.profileName.setText(account.getUsername());
+        if (account.getImageURL() != null && account.getImageURL().equals("default")) {
             holder.profileImage.setImageResource(R.mipmap.ic_launcher);
         } else {
-            Glide.with(mContext).load(user.getImageURL()).into(holder.profileImage);
+            Glide.with(mContext).load(account.getImageURL()).into(holder.profileImage);
         }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, MessageActivity.class);
-                intent.putExtra("Uid", user.getId());
+                intent.putExtra("Uid", account.getId());
                 mContext.startActivity(intent);
             }
         });
@@ -61,7 +61,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        return userList.size();
+        return accountList.size();
     }
 
     @SuppressLint("NonConstantResourceId")

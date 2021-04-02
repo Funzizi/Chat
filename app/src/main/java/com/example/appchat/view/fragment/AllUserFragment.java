@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 
 import com.example.appchat.R;
 import com.example.appchat.adapter.UserAdapter;
-import com.example.appchat.model.User;
+import com.example.appchat.model.Account;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -33,13 +33,13 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 @SuppressLint("NonConstantResourceId")
-public class UserFragment extends Fragment {
+public class AllUserFragment extends Fragment {
 
     @BindView(R.id.rcv_all_user)
     RecyclerView rcvAllUser;
 
     private UserAdapter userAdapter;
-    private List<User> userList;
+    private List<Account> accountList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -49,7 +49,7 @@ public class UserFragment extends Fragment {
         rcvAllUser.setHasFixedSize(true);
         rcvAllUser.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        userList = new ArrayList<>();
+        accountList = new ArrayList<>();
 
         getDataUser();
 
@@ -62,16 +62,16 @@ public class UserFragment extends Fragment {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                userList.clear();
+                accountList.clear();
                 Map<String, Object> td = (HashMap<String, Object>) snapshot.child("Users").getValue();
                 Gson gson = new Gson();
                 for(Map.Entry<String, Object> entry : td.entrySet()) {
-                    User user = gson.fromJson(gson.toJsonTree(entry.getValue()), User.class);
-                    if (!user.getId().equals(firebaseUser.getUid())) {
-                        userList.add(user);
+                    Account account = gson.fromJson(gson.toJsonTree(entry.getValue()), Account.class);
+                    if (!account.getId().equals(firebaseUser.getUid())) {
+                        accountList.add(account);
                     }
                 }
-                userAdapter = new UserAdapter(getContext(), userList);
+                userAdapter = new UserAdapter(getContext(), accountList);
                 rcvAllUser.setAdapter(userAdapter);
             }
 
