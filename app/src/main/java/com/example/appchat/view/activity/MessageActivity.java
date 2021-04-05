@@ -78,11 +78,6 @@ public class MessageActivity extends AppCompatActivity {
                 Account account = snapshot.getValue(Account.class);
                 if (account != null) {
                     userName.setText(account.getUsername());
-//                    if (account.getImageURL() != null && account.getImageURL().equals("default")) {
-//                        profileImage.setImageResource(R.mipmap.ic_launcher);
-//                    } else {
-//                        Glide.with(MessageActivity.this).load(account.getImageURL()).into(profileImage);
-//                    }
                     Utillity.loadAvatar(profileImage, account.getImageURL());
 
                     responseMessage(firebaseUser.getUid(), Uid, account.getImageURL());

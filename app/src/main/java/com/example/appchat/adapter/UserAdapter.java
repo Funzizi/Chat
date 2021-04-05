@@ -44,11 +44,6 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Account account = accountList.get(position);
         holder.profileName.setText(account.getUsername());
-//        if (account.getImageURL() != null && account.getImageURL().equals("default")) {
-//            holder.profileImage.setImageResource(R.mipmap.ic_launcher);
-//        } else {
-//            Glide.with(mContext).load(account.getImageURL()).into(holder.profileImage);
-//        }
         Utillity.loadAvatar(holder.profileImage, account.getImageURL());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {

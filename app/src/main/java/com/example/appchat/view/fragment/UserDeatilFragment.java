@@ -78,11 +78,6 @@ public class UserDeatilFragment extends Fragment {
                 Account account = snapshot.getValue(Account.class);
                 if (account != null) {
                     fullName.setText(account.getUsername());
-//                    if (account.getImageURL() != null && account.getImageURL().equals("default")) {
-//                        avatar.setImageResource(R.mipmap.ic_launcher);
-//                    } else {
-//                        Glide.with(UserDeatilFragment.this).load(account.getImageURL()).into(avatar);
-//                    }
                     Utillity.loadAvatar(avatar, account.getImageURL());
                 }
             }

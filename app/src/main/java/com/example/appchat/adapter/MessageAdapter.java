@@ -56,11 +56,6 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
     public void onBindViewHolder(@NonNull MessageAdapter.ViewHolder holder, int position) {
         Message message = messageList.get(position);
         holder.iMessage.setText(message.getMessage());
-//        if (imageUrl.equals("default")) {
-//            holder.profileImage.setImageResource(R.mipmap.ic_launcher);
-//        } else {
-//            Glide.with(mContext).load(imageUrl).into(holder.profileImage);
-//        }
         Utillity.loadAvatar(holder.profileImage, imageUrl);
     }
 
