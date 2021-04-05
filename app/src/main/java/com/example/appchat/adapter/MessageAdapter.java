@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.appchat.R;
+import com.example.appchat.base.Utillity;
 import com.example.appchat.model.Message;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -55,11 +56,12 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
     public void onBindViewHolder(@NonNull MessageAdapter.ViewHolder holder, int position) {
         Message message = messageList.get(position);
         holder.iMessage.setText(message.getMessage());
-        if (imageUrl.equals("default")) {
-            holder.profileImage.setImageResource(R.mipmap.ic_launcher);
-        } else {
-            Glide.with(mContext).load(imageUrl).into(holder.profileImage);
-        }
+//        if (imageUrl.equals("default")) {
+//            holder.profileImage.setImageResource(R.mipmap.ic_launcher);
+//        } else {
+//            Glide.with(mContext).load(imageUrl).into(holder.profileImage);
+//        }
+        Utillity.loadAvatar(holder.profileImage, imageUrl);
     }
 
     @Override

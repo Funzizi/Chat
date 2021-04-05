@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.appchat.adapter.ViewPagerAdapter;
 import com.example.appchat.R;
+import com.example.appchat.base.Utillity;
 import com.example.appchat.view.fragment.AllUserFragment;
 import com.example.appchat.view.fragment.ChatFragment;
 import com.example.appchat.view.fragment.UserDeatilFragment;
@@ -77,11 +78,12 @@ public class MainActivity extends AppCompatActivity {
                 Account account = snapshot.getValue(Account.class);
                 if (account != null) {
                     userName.setText(account.getUsername());
-                    if (account.getImageURL() != null && account.getImageURL().equals("default")) {
-                        profileImage.setImageResource(R.mipmap.ic_launcher);
-                    } else {
-                        Glide.with(MainActivity.this).load(account.getImageURL()).into(profileImage);
-                    }
+//                    if (account.getImageURL() != null && account.getImageURL().equals("default")) {
+//                        profileImage.setImageResource(R.mipmap.ic_launcher);
+//                    } else {
+//                        Glide.with(MainActivity.this).load(account.getImageURL()).into(profileImage);
+//                    }
+                    Utillity.loadAvatar(profileImage, account.getImageURL());
                 }
             }
 

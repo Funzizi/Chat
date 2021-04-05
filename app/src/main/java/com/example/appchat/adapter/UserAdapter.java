@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.appchat.R;
+import com.example.appchat.base.Utillity;
 import com.example.appchat.model.Account;
 import com.example.appchat.view.activity.MessageActivity;
 
@@ -43,11 +44,12 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Account account = accountList.get(position);
         holder.profileName.setText(account.getUsername());
-        if (account.getImageURL() != null && account.getImageURL().equals("default")) {
-            holder.profileImage.setImageResource(R.mipmap.ic_launcher);
-        } else {
-            Glide.with(mContext).load(account.getImageURL()).into(holder.profileImage);
-        }
+//        if (account.getImageURL() != null && account.getImageURL().equals("default")) {
+//            holder.profileImage.setImageResource(R.mipmap.ic_launcher);
+//        } else {
+//            Glide.with(mContext).load(account.getImageURL()).into(holder.profileImage);
+//        }
+        Utillity.loadAvatar(holder.profileImage, account.getImageURL());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
