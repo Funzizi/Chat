@@ -18,12 +18,10 @@ import android.webkit.MimeTypeMap;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.example.appchat.R;
 import com.example.appchat.base.AppConstants;
 import com.example.appchat.base.Utillity;
 import com.example.appchat.model.Account;
-import com.example.appchat.view.activity.MainActivity;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -41,6 +39,7 @@ import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 
 import java.util.HashMap;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -59,7 +58,7 @@ public class UserDeatilFragment extends Fragment {
     private FirebaseUser firebaseUser;
     private DatabaseReference databaseReference;
     private StorageReference storageReference;
-    private StorageTask uploadTask;
+    private StorageTask<UploadTask.TaskSnapshot> uploadTask;
     private Uri uri;
 
     public UserDeatilFragment() {
@@ -120,11 +119,11 @@ public class UserDeatilFragment extends Fragment {
         if (uri != null) {
             final StorageReference fileReference = storageReference.child(System.currentTimeMillis() + "." + getFileExtension(uri));
             uploadTask = fileReference.putFile(uri);
-            uploadTask.continueWith(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+            uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
                 @Override
                 public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
                     if (!task.isSuccessful()) {
-                        throw task.getException();
+                        throw Objects.requireNonNull(task.getException());
                     }
                     return fileReference.getDownloadUrl();
                 }

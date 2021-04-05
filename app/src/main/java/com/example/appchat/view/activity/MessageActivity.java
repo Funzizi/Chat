@@ -79,7 +79,6 @@ public class MessageActivity extends AppCompatActivity {
                 if (account != null) {
                     userName.setText(account.getUsername());
                     Utillity.loadAvatar(profileImage, account.getImageURL());
-
                     responseMessage(firebaseUser.getUid(), Uid, account.getImageURL());
                 }
             }
