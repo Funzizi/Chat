@@ -121,7 +121,7 @@ public class ChatFragment extends Fragment {
                         }
                     }
                 }
-                userAdapter = new UserAdapter(getContext(), accountList);
+                userAdapter = new UserAdapter(getContext(), accountList, true);
                 rcv.setAdapter(userAdapter);
             }
 

@@ -71,7 +71,7 @@ public class AllUserFragment extends Fragment {
                         accountList.add(account);
                     }
                 }
-                userAdapter = new UserAdapter(getContext(), accountList);
+                userAdapter = new UserAdapter(getContext(), accountList, false);
                 rcvAllUser.setAdapter(userAdapter);
             }
 

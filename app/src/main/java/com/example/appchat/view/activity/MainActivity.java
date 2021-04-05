@@ -12,7 +12,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.example.appchat.adapter.ViewPagerAdapter;
 import com.example.appchat.R;
 import com.example.appchat.base.Utillity;
@@ -29,6 +28,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.HashMap;
 import java.util.Objects;
 
 import butterknife.BindView;
@@ -37,7 +37,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 @SuppressLint("NonConstantResourceId")
 public class MainActivity extends AppCompatActivity {
-    
+
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.profile_image)
@@ -98,13 +98,32 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.log_out :
+            case R.id.log_out:
                 FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(MainActivity.this, StartActivity.class));
-                finish();
+                startActivity(new Intent(MainActivity.this, StartActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
                 return true;
         }
 
         return false;
+    }
+
+    private void statusAccount(String status) {
+        databaseReference = FirebaseDatabase.getInstance().getReference("User").child(firebaseUser.getUid());
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("status", status);
+
+        databaseReference.updateChildren(map);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        statusAccount("online");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        statusAccount("offline");
     }
 }

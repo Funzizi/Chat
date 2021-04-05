@@ -25,12 +25,15 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
-    private Context mContext;
-    private List<Account> accountList;
+    private final Context mContext;
+    private final List<Account> accountList;
+    private boolean isChat;
 
-    public UserAdapter (Context context, List<Account> accountList) {
+
+    public UserAdapter (Context context, List<Account> accountList, boolean isChat) {
         this.mContext = context;
         this.accountList = accountList;
+        this.isChat = isChat;
     }
 
     @NonNull
@@ -54,6 +57,19 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
                 mContext.startActivity(intent);
             }
         });
+
+        if (isChat) {
+            if (account.getStatus().equals("online")) {
+                holder.statusOnline.setVisibility(View.VISIBLE);
+                holder.statusOffline.setVisibility(View.GONE);
+            } else {
+                holder.statusOnline.setVisibility(View.GONE);
+                holder.statusOffline.setVisibility(View.VISIBLE);
+            }
+        } else {
+            holder.statusOnline.setVisibility(View.GONE);
+            holder.statusOffline.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -68,6 +84,10 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         CircleImageView profileImage;
         @BindView(R.id.profile_name)
         TextView profileName;
+        @BindView(R.id.online)
+        CircleImageView statusOnline;
+        @BindView(R.id.offline)
+        CircleImageView statusOffline;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

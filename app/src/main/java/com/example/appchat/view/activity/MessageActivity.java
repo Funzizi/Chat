@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -97,7 +98,7 @@ public class MessageActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                startActivity(new Intent(MessageActivity.this, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
             }
         });
 
@@ -114,14 +115,6 @@ public class MessageActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 messageList.clear();
-//                Map<String, Object> td = (HashMap<String, Object>) snapshot.child("Chats").getValue();
-//                Gson gson = new Gson();
-//                for(Map.Entry<String, Object> entry : td.entrySet()) {
-//                    Message message = gson.fromJson(gson.toJsonTree(entry.getValue()), Message.class);
-//                    if (message.getReceiver().equals(myId) && message.getSender().equals(Uid) || message.getSender().equals(myId)) {
-//                        messageList.add(message);
-//                    }
-//                }
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     Message message = dataSnapshot.getValue(Message.class);
                     if (message.getReceiver().equals(myId) && message.getSender().equals(Uid) || message.getSender().equals(myId)) {

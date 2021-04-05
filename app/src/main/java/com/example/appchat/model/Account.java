@@ -4,6 +4,7 @@ public class Account {
     private String id;
     private String imageURL;
     private String username;
+    private String status;
 
     public String getId() {
         return id;
@@ -27,5 +28,13 @@ public class Account {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }
